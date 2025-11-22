@@ -194,6 +194,35 @@ const Contact = ({ personalInfo }) => {
                 </form>
               </Card>
             </div>
+
+            {/* Direct Communication Notice */}
+            <Card className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 backdrop-blur-md border border-white/10 p-6 rounded-xl">
+              <p className="text-center text-slate-200 text-base">
+                Prefer direct communication? Feel free to reach out via{' '}
+                <a 
+                  href={`mailto:${personalInfo.email}`}
+                  className="text-blue-400 hover:text-blue-300 underline decoration-blue-400/50 hover:decoration-blue-300 transition-colors font-medium"
+                >
+                  email
+                </a>
+                ,{' '}
+                <a 
+                  href={`tel:${personalInfo.phone}`}
+                  className="text-green-400 hover:text-green-300 underline decoration-green-400/50 hover:decoration-green-300 transition-colors font-medium"
+                >
+                  mobile
+                </a>
+                , or{' '}
+                <a 
+                  href={personalInfo.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:text-blue-400 underline decoration-blue-500/50 hover:decoration-blue-400 transition-colors font-medium"
+                >
+                  LinkedIn
+                </a>
+              </p>
+            </Card>
           </div>
 
           {/* Contact Information */}

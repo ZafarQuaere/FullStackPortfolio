@@ -19,6 +19,7 @@ const Header = ({ personalInfo }) => {
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Services', href: '#services' },
     { name: 'Blog', href: '#blog' },
     { name: 'Contact', href: '#contact' }
   ];
