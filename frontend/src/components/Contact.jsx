@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Mail, Phone, Linkedin, Github, Send, MapPin, MessageSquare } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, Phone, Linkedin, Github, Send, MapPin, MessageSquare, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { useToast } from '../hooks/use-toast';
+import { initEmailJS, sendEmail } from '../lib/emailjs';
+import { debugEmailJS } from '../lib/emailjs-debug';
 
 const Contact = ({ personalInfo }) => {
   const [formData, setFormData] = useState({
@@ -14,7 +16,17 @@ const Contact = ({ personalInfo }) => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const { toast } = useToast();
+
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    initEmailJS();
+    // Add debug function to window for testing
+    window.debugEmailJS = debugEmailJS;
+    console.log('💡 Tip: Run debugEmailJS() in console to test EmailJS configuration');
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,30 +34,51 @@ const Contact = ({ personalInfo }) => {
       ...prev,
       [name]: value
     }));
+    // Clear any previous errors when user starts typing
+    if (submitError) setSubmitError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
+    setIsSubmitted(false);
     
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log('Form submission started with data:', formData);
+      
+      // Send email using EmailJS
+      await sendEmail(formData);
+      
+      // Success - show success message and reset form
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
       
       toast({
         title: "Message Sent Successfully!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+        description: "Thank you for reaching out. I'll get back to you within 24 hours.",
         duration: 5000,
       });
       
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000);
+      
     } catch (error) {
+      console.error('Form submission failed:', error);
+      
+      // Use the specific error message from EmailJS
+      const errorMessage = error.message || 'Failed to send message. Please try again or contact me directly.';
+      setSubmitError(errorMessage);
+      
       toast({
         title: "Error",
-        description: "Failed to send message. Please try again.",
+        description: errorMessage,
         variant: "destructive",
         duration: 5000,
       });
+      
+      // Clear error after 10 seconds
+      setTimeout(() => setSubmitError(''), 10000);
     } finally {
       setIsSubmitting(false);
     }
@@ -106,6 +139,34 @@ const Contact = ({ personalInfo }) => {
               </h3>
               
               <Card className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl">
+                {/* Success Message */}
+                {isSubmitted && (
+                  <div className="mb-6 p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-xl flex items-start gap-3 animate-in fade-in-50 duration-300">
+                    <div className="p-1.5 rounded-full bg-green-500/20">
+                      <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-green-400 font-semibold mb-1">Message Sent Successfully!</p>
+                      <p className="text-slate-300 text-sm">
+                        Thank you for reaching out. I'll get back to you within 24 hours.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Error Message */}
+                {submitError && (
+                  <div className="mb-6 p-4 bg-gradient-to-r from-red-500/10 to-pink-500/10 border border-red-500/30 rounded-xl flex items-start gap-3 animate-in fade-in-50 duration-300">
+                    <div className="p-1.5 rounded-full bg-red-500/20">
+                      <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-red-400 font-semibold mb-1">Failed to Send Message</p>
+                      <p className="text-slate-300 text-sm">{submitError}</p>
+                    </div>
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
