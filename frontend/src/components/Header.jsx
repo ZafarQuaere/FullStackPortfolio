@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from './ui/button';
+import { scrollToSection } from '../utils/scrollUtils';
 
 const Header = ({ personalInfo }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,24 +21,11 @@ const Header = ({ personalInfo }) => {
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
     { name: 'Services', href: '#services' },
-    { name: 'Blog', href: '#blog' },
     { name: 'Contact', href: '#contact' }
   ];
 
-  const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      const offset = 80; // Account for fixed header
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const handleNavClick = (href) => {
+    scrollToSection(href);
     setIsMenuOpen(false);
   };
 
@@ -67,7 +55,7 @@ const Header = ({ personalInfo }) => {
               {navItems.map((item) => (
                 <button
                   key={item.name}
-                  onClick={() => scrollToSection(item.href)}
+                  onClick={() => handleNavClick(item.href)}
                   className="text-slate-300 hover:text-white transition-colors relative group"
                 >
                   {item.name}
@@ -121,7 +109,7 @@ const Header = ({ personalInfo }) => {
               {navItems.map((item) => (
                 <button
                   key={item.name}
-                  onClick={() => scrollToSection(item.href)}
+                  onClick={() => handleNavClick(item.href)}
                   className="block w-full text-left text-slate-300 hover:text-white transition-colors py-2"
                 >
                   {item.name}

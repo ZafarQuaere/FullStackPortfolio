@@ -1,6 +1,7 @@
 import React from 'react';
 import { Github, Linkedin, Mail, Phone, Heart, ArrowUp } from 'lucide-react';
 import { Button } from './ui/button';
+import { scrollToSection } from '../utils/scrollUtils';
 
 const Footer = ({ personalInfo }) => {
   const currentYear = new Date().getFullYear();
@@ -13,25 +14,9 @@ const Footer = ({ personalInfo }) => {
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Blog', href: '#blog' },
+    { name: 'Services', href: '#services' },
     { name: 'Contact', href: '#contact' }
   ];
-
-  const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   return (
     <footer className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 border-t border-white/10">

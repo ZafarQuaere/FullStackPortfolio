@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from './components/ui/toaster';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -8,9 +7,10 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Services from './components/Services';
-import Blog from './components/Blog';
+import BugFixing from './components/BugFixing';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import { scrollToSection } from './utils/scrollUtils';
 
 // Import mock data
 import { 
@@ -19,8 +19,7 @@ import {
   projects, 
   experience, 
   education, 
-  certifications, 
-  blogPosts 
+  certifications
 } from './mock';
 
 function App() {
@@ -40,54 +39,40 @@ function App() {
   }, []);
 
   const handleExploreClick = () => {
-    const aboutSection = document.querySelector('#about');
-    if (aboutSection) {
-      const offset = 80; // Account for fixed header
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = aboutSection.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    scrollToSection('#about');
   };
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header personalInfo={personalInfo} />
+      <Header personalInfo={personalInfo} />
+      
+      <main className="min-h-screen">
+        <Hero 
+          personalInfo={personalInfo} 
+          onExploreClick={handleExploreClick}
+        />
         
-        <main className="min-h-screen">
-          <Hero 
-            personalInfo={personalInfo} 
-            onExploreClick={handleExploreClick}
-          />
-          
-          <About 
-            personalInfo={personalInfo}
-            experience={experience}
-            education={education}
-            certifications={certifications}
-          />
-          
-          <Skills skills={skills} />
-          
-          <Projects projects={projects} />
-          
-          <Services />
-          
-          <Blog blogPosts={blogPosts} />
-          
-          <Contact personalInfo={personalInfo} />
-        </main>
+        <About 
+          personalInfo={personalInfo}
+          experience={experience}
+          education={education}
+          certifications={certifications}
+        />
         
-        <Footer personalInfo={personalInfo} />
+        <Skills skills={skills} />
         
-        <Toaster />
-      </BrowserRouter>
+        <Projects projects={projects} />
+        
+        <Services />
+        
+        <BugFixing />
+        
+        <Contact personalInfo={personalInfo} />
+      </main>
+      
+      <Footer personalInfo={personalInfo} />
+      
+      <Toaster />
     </div>
   );
 }
