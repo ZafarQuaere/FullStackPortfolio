@@ -118,7 +118,7 @@ export const projects = [
     id: 8,
     title: "Love Acharya",
     description: "Professional astrology and spiritual guidance website with elegant design, service booking system, and interactive consultation features.",
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop&crop=center",
+    image: "https://img.uenicdn.com/cdn-cgi/image/width=1536,height=660,fit=crop,f=auto/image/upload/v1521049511/service_images/shutterstock_417957613.jpg",
     tech: ["HTML5", "CSS3", "JavaScript", "PHP", "MySQL"],
     liveUrl: "https://love-acharya.ueniweb.com/",
     category: "Professional Services",
