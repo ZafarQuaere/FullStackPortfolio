@@ -7,6 +7,7 @@ export const personalInfo = {
   description: "10+ years of expertise in creating and launching high-quality mobile applications and dynamic websites. Specialized in cross-platform mobile development (Android, iOS, Flutter, KMP, React Native) and modern web development (landing pages, MVPs, full-stack applications) with robust architecture patterns.",
   email: "zafarimam512@gmail.com",
   phone: "+91 78349 08329",
+  whatsapp: "+917834908329",
   linkedin: "https://www.linkedin.com/in/zafarimam77/",
   github: "https://github.com/ZafarQuaere",
   profileImage: "https://customer-assets.emergentagent.com/job_techforge-portfolio/artifacts/w3zrf3jm_ProfilePic.png"

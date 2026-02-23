@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, MessageCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { scrollToSection } from '../utils/scrollUtils';
 
@@ -75,6 +75,14 @@ const Header = ({ personalInfo }) => {
                 <Github className="w-5 h-5" />
               </a>
               <a
+                href={`https://wa.me/${personalInfo.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300"
+              >
+                <MessageCircle className="w-5 h-5" />
+              </a>
+              <a
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -125,6 +133,14 @@ const Header = ({ personalInfo }) => {
                   className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300"
                 >
                   <Github className="w-5 h-5" />
+                </a>
+                <a
+                  href={`https://wa.me/${personalInfo.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-300"
+                >
+                  <MessageCircle className="w-5 h-5" />
                 </a>
                 <a
                   href={personalInfo.linkedin}

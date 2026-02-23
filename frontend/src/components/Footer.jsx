@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Mail, Phone, Heart, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Heart, ArrowUp, MessageCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { scrollToSection } from '../utils/scrollUtils';
 
@@ -54,6 +54,14 @@ const Footer = ({ personalInfo }) => {
                 <Github className="w-5 h-5 text-slate-300 group-hover:text-purple-300" />
               </a>
               <a
+                href={`https://wa.me/${personalInfo.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-green-500/20 hover:border-green-500/30 transition-all duration-300"
+              >
+                <MessageCircle className="w-5 h-5 text-slate-300 group-hover:text-green-300" />
+              </a>
+              <a
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -63,9 +71,9 @@ const Footer = ({ personalInfo }) => {
               </a>
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="group p-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-green-500/20 hover:border-green-500/30 transition-all duration-300"
+                className="group p-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-cyan-500/20 hover:border-cyan-500/30 transition-all duration-300"
               >
-                <Mail className="w-5 h-5 text-slate-300 group-hover:text-green-300" />
+                <Mail className="w-5 h-5 text-slate-300 group-hover:text-cyan-300" />
               </a>
             </div>
           </div>
